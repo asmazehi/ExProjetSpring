@@ -7,9 +7,11 @@ import tn.esprit.examen.nomPrenomClasseExamen.entities.Projet;
 import tn.esprit.examen.nomPrenomClasseExamen.repositories.EquipeRepository;
 import tn.esprit.examen.nomPrenomClasseExamen.repositories.ProjetRepository;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
-public class EquipeServiceImpl {
+public class EquipeServiceImpl implements  IEquipeService{
     private final EquipeRepository equipeRepository;
     private final ProjetRepository projetRepository;
 
@@ -29,5 +31,33 @@ public class EquipeServiceImpl {
         Equipe equipe = equipeRepository.findById(equipeId).orElseThrow();
         equipe.getProjets().remove(projet);
         equipeRepository.save(equipe);
+    }
+
+    @Override
+    public List<Projet> retrieveAllProjet() {
+        return List.of();
+    }
+
+    @Override
+    public Projet retrieveProjet(Long ProjetId) {
+        return null;
+    }
+
+    @Override
+    public Projet addProjet(Projet b) {
+        return null;
+    }
+
+    @Override
+    public void removeProjet(Long projetId) {
+
+    }
+
+    @Override
+    public Projet modifyProjet(Projet projet) {
+        return null;
+    }
+
+    public void assignProjetDetailToProjet(Long projetId, Long equipeId) {
     }
 }

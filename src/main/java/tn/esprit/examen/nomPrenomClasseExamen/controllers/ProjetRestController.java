@@ -27,5 +27,10 @@ public class ProjetRestController {
     public Projet desaffecterProjetDetail(@PathVariable("projet-id") Long projetId) {
         return projetService.desaffecterProjetDetailFromProjet(projetId);
     }
+    @PutMapping("/affecter-projet-a-projet-details/{projet-id}/{projet-details-id}")
+    public void affecterProjetAProjetDetail(@PathVariable("projet-id") Long proejtId,
+                                            @PathVariable("projet-details-id") Long proejtDetailsId) {
+        projetService.assignProjetDetailToProjet(proejtId, proejtDetailsId);
+    }
 }
 

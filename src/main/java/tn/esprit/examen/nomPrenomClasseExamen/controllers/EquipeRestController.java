@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.examen.nomPrenomClasseExamen.entities.Equipe;
 import tn.esprit.examen.nomPrenomClasseExamen.services.EquipeServiceImpl;
+import tn.esprit.examen.nomPrenomClasseExamen.services.ProjetDetailServiceImpl;
 
 @RestController
 @RequestMapping("/tp8/equipe")

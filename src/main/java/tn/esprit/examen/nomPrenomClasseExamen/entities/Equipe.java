@@ -20,8 +20,8 @@ public class Equipe {
     @Enumerated(EnumType.STRING)
     private Domaine domaine;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private Set<Projet> projets = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Projet> projets = new HashSet<Projet>();
 
     public Long getId() {
         return id;
