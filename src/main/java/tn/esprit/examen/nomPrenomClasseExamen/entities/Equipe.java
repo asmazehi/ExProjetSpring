@@ -20,7 +20,7 @@ public class Equipe {
     @Enumerated(EnumType.STRING)
     private Domaine domaine;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<Projet> projets = new HashSet<>();
 
     public Long getId() {
@@ -54,7 +54,6 @@ public class Equipe {
     public void setProjets(Set<Projet> projets) {
         this.projets = projets;
     }
-    @ManyToMany(mappedBy = "projets")
-    @JsonIgnore
-    private Set<Equipe> equipes = new HashSet<>();
+
+
 }

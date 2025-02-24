@@ -1,6 +1,10 @@
 package tn.esprit.examen.nomPrenomClasseExamen.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Projet {
@@ -35,4 +39,7 @@ public class Projet {
     public void setProjetDetail(ProjetDetail projetDetail) {
         this.projetDetail = projetDetail;
     }
+    @ManyToMany(mappedBy = "projets")
+    @JsonIgnore
+    private Set<Equipe> equipes = new HashSet<>();
 }

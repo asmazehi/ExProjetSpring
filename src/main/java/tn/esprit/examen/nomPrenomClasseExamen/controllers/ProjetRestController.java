@@ -13,7 +13,8 @@ public class ProjetRestController {
 
     @PostMapping("/ajouter-projet-et-projet-detail")
     public Projet addProjetAndProjetDetail(@RequestBody Projet p) {
-        return projetService.addProjetAndProjetDetailAndAssign(p);
+        Projet projet = projetService.addProjetAndProjetDetailAndAssign(p);
+        return projet;
     }
 
     @PutMapping("/affecter-projet-detail/{projet-id}/{projet-detail-id}")
