@@ -79,4 +79,12 @@ public class ProjetServiceImpl implements IProjetService {
         equipe.getProjets().remove(projet);
         equipeRepository.save(equipe);
     }
+    public void assignProjetsToEquipe(List<Long> projetIds, Long equipeId) {
+        Equipe equipe = equipeRepository.findById(equipeId).orElseThrow(() -> new RuntimeException("Equipe non trouvée"));
+
+        List<Projet> projets = projetRepository.findAllById(projetIds);
+
+        equipe.getProjets().addAll(projets);
+        equipeRepository.save(equipe);
+    }
 }

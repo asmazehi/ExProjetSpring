@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import tn.esprit.examen.nomPrenomClasseExamen.entities.Projet;
 import tn.esprit.examen.nomPrenomClasseExamen.services.ProjetServiceImpl;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/projet")
 @AllArgsConstructor
@@ -43,5 +45,10 @@ public class ProjetRestController {
     public void desaffecterProjetFromEquipe(@PathVariable("projet-id") Long projetId,
                                             @PathVariable("equipe-id") Long equipeId) {
         projetService.desaffecterProjetFromEquipe(projetId, equipeId);
+    }
+    @PutMapping("/affecter-plusieurs-projet-a-equipe/{projet-ids}/{equipe-id}")
+    public void assignProjetsToEquipe(@PathVariable("projet-ids") List<Long> projetIds,
+                                      @PathVariable("equipe-id") Long equipeId) {
+        projetService.assignProjetsToEquipe(projetIds, equipeId);
     }
 }
