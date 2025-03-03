@@ -21,7 +21,7 @@ public class Equipe {
     private Domaine domaine;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Projet> projets = new HashSet<Projet>();
+    private Set<Projet> projets = new HashSet<>();
 
     public Long getId() {
         return id;
