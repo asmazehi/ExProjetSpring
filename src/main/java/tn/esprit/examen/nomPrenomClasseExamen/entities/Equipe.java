@@ -1,27 +1,35 @@
 package tn.esprit.examen.nomPrenomClasseExamen.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.HashSet;
-import java.util.Set;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Equipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nom;
-
-    @Enumerated(EnumType.STRING)
     private Domaine domaine;
-
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Projet> projets = new HashSet<>();
+    private List<Projet> projets = new ArrayList<Projet>();
+
+    public List<Projet> getProjets() {
+        return projets;
+    }
+
+    public void setProjets(List<Projet> projets) {
+        this.projets = projets;
+    }
 
     public Long getId() {
         return id;
@@ -46,14 +54,4 @@ public class Equipe {
     public void setDomaine(Domaine domaine) {
         this.domaine = domaine;
     }
-
-    public Set<Projet> getProjets() {
-        return projets;
-    }
-
-    public void setProjets(Set<Projet> projets) {
-        this.projets = projets;
-    }
-
-
 }

@@ -1,61 +1,96 @@
 package tn.esprit.examen.nomPrenomClasseExamen.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.examen.nomPrenomClasseExamen.entities.Projet;
-import tn.esprit.examen.nomPrenomClasseExamen.services.ProjetServiceImpl;
+import tn.esprit.examen.nomPrenomClasseExamen.entities.ProjetDetails;
+import tn.esprit.examen.nomPrenomClasseExamen.services.IProjetService;
 
 import java.util.List;
 
-
+@Tag(name="Gestion projets")
 @RestController
-@RequestMapping("/projet")
 @AllArgsConstructor
+@RequestMapping("/projet")
 public class ProjetRestController {
-
-    private final ProjetServiceImpl projetService;
-
-    @PostMapping("/ajouter-et-affecter-detail")
+    @Autowired
+    IProjetService projetService;
+    @Operation(description = "récupérer toutes les projetsdetails de la base de données")
+    //http://localhost:8089/newpro/projet/ajouter-projet-et-projet-detail
+    @PostMapping("/ajouter-projet-et-projet-detail")
     public Projet addProjetAndProjetDetail(@RequestBody Projet p) {
-        return projetService.addProjetAndProjetDetailAndAssign(p);
+        Projet projet = projetService.addProjetAndProjetDetailAndAssign(p);
+        return projet;
+    }
+    // http://localhost:8089/newpro/projet/retrieve-all-projet
+    @GetMapping("/retrieve-all-projet")
+    public List<Projet> getProjet() {
+        List<Projet> listProjets = projetService.retrieveAllProjet();
+        return listProjets;
     }
 
-    @PutMapping("/affecter-detail/{projet-id}/{projet-detail-id}")
-    public void affecterProjetDetail(@PathVariable("projet-id") Long projetId,
-                                     @PathVariable("projet-detail-id") Long projetDetailId) {
-        projetService.assignProjetDetailToProjet(projetId, projetDetailId);
+    // http://localhost:8089/newpro/projet/retrieve-projet/8
+    @GetMapping("/retrieve-projet/{projet-id}")
+    public Projet retrieveProjetDetails(@PathVariable("projet-id") Long blId) {
+        Projet projet = projetService.retrieveProjet(blId);
+        return projet;
+
+    }
+    // http://localhost:8089/newpro/projet/add-projet
+    @PostMapping("/add-projet")
+    public Projet addProjet(@RequestBody Projet b) {
+        Projet projet = projetService.addProjet(b);
+        return projet;
+    }
+    // http://localhost:8089/newpro/projet/remove-projet/{projet-id}
+    @DeleteMapping("/remove-projet/{projet-id}")
+    public void removeProjet(@PathVariable("projet-id") Long blId) {
+        projetService.removeProjet(blId);
     }
 
-    @PutMapping("/desaffecter-detail/{projet-id}")
-    public Projet desaffecterProjetDetail(@PathVariable("projet-id") Long projetId) {
-        return projetService.desaffecterProjetDetailFromProjet(projetId);
+    // http://localhost:8089/newpro/projet/modify-projet
+    @PutMapping("/modify-projet")
+    public Projet modifyProjet(@RequestBody Projet b) {
+        Projet projet = projetService.modifyProjet(b);
+        return projet;
+    }
+    //http://localhost:8089/tp8/projet/affecter-projet-a-projet-details/1/1
+    @PutMapping("/affecter-projet-a-projet-details/{projet-id}/{projet-details-id}")
+    public void affecgterProjetAProjetDetail(@PathVariable("projet-id") Long projtId, @PathVariable("projet-details-id") Long proejtDetailsId) {
+        projetService.assignProjetDetailToProjet(projtId, proejtDetailsId);
+    }
+    @PutMapping("/affecter-projet-a-equipe/{projet-id}/{equipe-id}")
+    public void affecgterEqupeProjet(@PathVariable("projet-id") Long projtId,
+                                     @PathVariable("equipe-id") Long equipeId) {
+        projetService.assignProjetToEquipe(projtId, equipeId);
+    }
+    @PostMapping("/ajouter-projet-et-afffecter-projet-details-to-projet/{projet-detail-id}")
+    public Projet addProjetandAssignProjetDetail(@RequestBody Projet p , @PathVariable("projet-details_id") Long projetDetailsId) {
+        Projet projet = projetService.addProjetAndAssignProjetToProjetDetail(p,projetDetailsId);
+        return projet;
     }
 
-    @PostMapping("/creer-et-affecter-detail/{projet-detail-id}")
-    public Projet addProjetAndAssignProjetToProjetDetail(@RequestBody Projet projet,
-                                                         @PathVariable("projet-detail-id") Long projetDetailId) {
-        return projetService.addProjetAndAssignProjetToProjetDetail(projet, projetDetailId);
+    @PutMapping("/desaffecter-projet-details/{projet-id}")
+    public void desaffecgterProjetDeatilsdromproj(@PathVariable("projet-id") Long projtId) {
+        projetService.DesaffecterProjetDetailFromProjet(projtId);
     }
-
-    @PutMapping("/desaffecter-de-equipe/{projet-id}/{equipe-id}")
-    public void desaffecterProjetFromEquipe(@PathVariable("projet-id") Long projetId,
-                                            @PathVariable("equipe-id") Long equipeId) {
-        projetService.desaffecterProjetFromEquipe(projetId, equipeId);
+    @PutMapping("/desaffecter-projet-de-equipe/{projet-id}/{equipe-id}")
+    public void desaffecgterEqupeProjet(@PathVariable("projet-id") Long projtId , @PathVariable("equipe-id") Long equipeId) {
+        projetService.desaffecterProjetFromEquipe( projtId,  equipeId);
     }
-
-    @PutMapping("/affecter-plusieurs-a-equipe/{projet-ids}/{equipe-id}")
+    @PutMapping("/affecter-plusieurs-projet-a-equipe/{projet-ids}/{equipe-id}")
     public void assignProjetsToEquipe(@PathVariable("projet-ids") List<Long> projetIds,
                                       @PathVariable("equipe-id") Long equipeId) {
         projetService.assignProjetsToEquipe(projetIds, equipeId);
     }
-    @GetMapping("/retrieveProjetSelonTech/{tech}")
+
+    @GetMapping("/findprojet/{tech}")
     public List<Projet> findProjet(@RequestParam("tech") String tech) {
-        List<Projet> listProjets = projetService.retrieveProjetSelonTech(tech);
+        List<Projet> listProjets = projetService.findProjetpartech(tech);
         return listProjets;
-    }
-    @GetMapping("/retrieve-projet-detail-par-technologie/{technologie}")
-    public List<Projet> retrieveProjetDetailparTechnologie(@PathVariable("technologie") String technologie) {
-        return projetService.retrieveProjetDetailparTechnologie(technologie);
     }
     @GetMapping("/findProjetequipe/{equipe}")
     public List<Projet> findProjetequipe(@RequestParam("equipe") Long equipeid) {
@@ -68,3 +103,4 @@ public class ProjetRestController {
         return listProjets;
     }
 }
+

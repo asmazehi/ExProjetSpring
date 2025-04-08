@@ -10,13 +10,11 @@ import java.util.List;
 
 @Repository
 public interface ProjetRepository extends JpaRepository<Projet, Long> {
-    List<Projet> findByProjetDetailTechnologieLike(String technologie);
-
-    @Query("SELECT projet FROM Projet projet where "
-    + "projet.projetDetail.technologie =:technologie"
-    )
-    List<Projet> findByProjetDetailTechnologie(@Param("technologie") String technologie);
+    @Query("SELECT projet from Projet projet where projet.projetdetails.technologie=:technologie")
+    List<Projet> findByProjetdetailsTechnologieContaining(@Param("technologie") String technologie);
+    //List<Projet> findByProjetdetailsTechnologieContaining(String projet);
     List<Projet> findByEquipesId(Long id);
-    List<Projet> findByEquipesIdAndProjetdetailDescriptionNotNull(Long id);
+    List<Projet> findByEquipesIdAndProjetdetailsDescriptionNotNull(Long id);
+
 }
 

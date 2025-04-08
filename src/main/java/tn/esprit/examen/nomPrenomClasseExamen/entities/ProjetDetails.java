@@ -1,21 +1,23 @@
 package tn.esprit.examen.nomPrenomClasseExamen.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.*;
 
-import java.util.Date;
-
+import java.sql.Date;
 @Entity
-public class ProjetDetail {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class ProjetDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String description;
     private String technologie;
-    private Long cout;
+    private String cout;
     private Date dateDebut;
-
-    @OneToOne(mappedBy = "projetDetail")
-    private Projet projet;
 
     public Long getId() {
         return id;
@@ -41,11 +43,11 @@ public class ProjetDetail {
         this.technologie = technologie;
     }
 
-    public Long getCout() {
+    public String getCout() {
         return cout;
     }
 
-    public void setCout(Long cout) {
+    public void setCout(String cout) {
         this.cout = cout;
     }
 
@@ -57,11 +59,9 @@ public class ProjetDetail {
         this.dateDebut = dateDebut;
     }
 
-    public Projet getProjet() {
-        return projet;
-    }
+    @OneToOne(mappedBy = "projetdetails")
+    @ToString.Exclude
+    @JsonIgnore
+    public Projet projet;
 
-    public void setProjet(Projet projet) {
-        this.projet = projet;
-    }
 }

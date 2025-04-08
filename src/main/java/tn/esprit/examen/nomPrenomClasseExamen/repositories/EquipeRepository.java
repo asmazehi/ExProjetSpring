@@ -12,8 +12,8 @@ import java.util.List;
 public interface EquipeRepository extends JpaRepository<Equipe, Long> {
     @Query("SELECT equipe FROM Equipe equipe"
             + " INNER JOIN equipe.projets projet"
-            + " INNER JOIN ProjetDetail detail"
-            + " ON detail.id = projet.projetDetail.id"
+            + " INNER JOIN ProjetDetails detail"
+            + " ON detail.id = projet.projetdetails.id"
             + " where detail.dateDebut > current_date"
             + " and detail.technologie =:technologie")
     List<Equipe> retrieveEquipesByProjetTechnologie(@Param("technologie")String technologie);
