@@ -17,4 +17,8 @@ public interface IProjetService {
     public Projet DesaffecterProjetDetailFromProjet(Long projetId);
     public void desaffecterProjetFromEquipe(Long projetId, Long equipeId);
     public void assignProjetsToEquipe(List<Long> projetIds, Long equipeId);
+    List<Projet> retrieveProjetSelonTech(String technologie);
+    public List<Projet> retrieveProjetDetailparTechnologie(String technologie);
+    List<Projet> findProjetparequipe(Long id);
+    public List<Projet> findProjetparequipeetdescriptionnotnull(Long id);
 }

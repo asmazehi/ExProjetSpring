@@ -25,6 +25,10 @@ public class EquipeServiceImpl implements  IEquipeService{
         equipe.getProjets().add(projet);
         equipeRepository.save(equipe);
     }
+    @Override
+    public List<Equipe> findEquipebyprojetdetails(String technologie) {
+        return equipeRepository.retrieveEquipesByProjetTechnologie(technologie);
+    }
 
     public void desaffecterProjetFromEquipe(Long projetId, Long equipeId) {
         Projet projet = projetRepository.findById(projetId).orElseThrow();

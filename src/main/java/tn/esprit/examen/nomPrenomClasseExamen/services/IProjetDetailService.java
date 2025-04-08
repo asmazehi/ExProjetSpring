@@ -10,4 +10,8 @@ public interface IProjetDetailService {
     public ProjetDetail addProjetDetail(ProjetDetail b);
     public void removeProjetDetail(Long projetDetailId);
     public ProjetDetail modifyProjetDetail(ProjetDetail projetDetail);
+    public List<ProjetDetail>findProjetDetail(String tech);
+    public List<ProjetDetail> fiindProjetDetail(String tech);
+    public List<ProjetDetail> fiiindProjetDetail(String tech);
+
 }

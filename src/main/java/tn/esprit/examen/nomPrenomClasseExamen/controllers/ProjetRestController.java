@@ -48,4 +48,23 @@ public class ProjetRestController {
                                       @PathVariable("equipe-id") Long equipeId) {
         projetService.assignProjetsToEquipe(projetIds, equipeId);
     }
+    @GetMapping("/retrieveProjetSelonTech/{tech}")
+    public List<Projet> findProjet(@RequestParam("tech") String tech) {
+        List<Projet> listProjets = projetService.retrieveProjetSelonTech(tech);
+        return listProjets;
+    }
+    @GetMapping("/retrieve-projet-detail-par-technologie/{technologie}")
+    public List<Projet> retrieveProjetDetailparTechnologie(@PathVariable("technologie") String technologie) {
+        return projetService.retrieveProjetDetailparTechnologie(technologie);
+    }
+    @GetMapping("/findProjetequipe/{equipe}")
+    public List<Projet> findProjetequipe(@RequestParam("equipe") Long equipeid) {
+        List<Projet> listProjets = projetService.findProjetparequipe(equipeid);
+        return listProjets;
+    }
+    @GetMapping("/findProjetequipeanddescriptionnotnull/{equipe}")
+    public List<Projet> findProjetequipeanddescriptionnotnull(@RequestParam("equipe") Long equipeid) {
+        List<Projet> listProjets = projetService.findProjetparequipeetdescriptionnotnull(equipeid);
+        return listProjets;
+    }
 }

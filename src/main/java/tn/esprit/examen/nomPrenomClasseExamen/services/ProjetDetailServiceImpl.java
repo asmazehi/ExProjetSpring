@@ -46,5 +46,17 @@ public class ProjetDetailServiceImpl implements IProjetDetailService {
         projet.setProjetDetail(projetDetail);
         projetRepository.save(projet);
     }
+    @Override
+    public List<ProjetDetail> findProjetDetail(String blocId) {
+        return projetDetailRepository.findByTechnologieLike(blocId);
+    }
+    @Override
+    public List<ProjetDetail> fiindProjetDetail(String blocId) {
+        return projetDetailRepository.findByTechnologieContains(blocId);
+    }
+    @Override
+    public List<ProjetDetail> fiiindProjetDetail(String blocId) {
+        return projetDetailRepository.findByTechnologieContaining(blocId);
+    }
 
 }

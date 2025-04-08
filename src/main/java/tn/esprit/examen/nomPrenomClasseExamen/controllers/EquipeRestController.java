@@ -6,6 +6,8 @@ import tn.esprit.examen.nomPrenomClasseExamen.entities.Equipe;
 import tn.esprit.examen.nomPrenomClasseExamen.services.EquipeServiceImpl;
 import tn.esprit.examen.nomPrenomClasseExamen.services.ProjetDetailServiceImpl;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/tp8/equipe")
 @AllArgsConstructor
@@ -27,5 +29,10 @@ public class EquipeRestController {
     public void desaffecterProjetDeEquipe(@PathVariable("equipe-id") Long equipeId,
                                           @PathVariable("projet-id") Long projetId) {
         equipeService.desaffecterProjetFromEquipe(projetId, equipeId);
+    }
+    @GetMapping("/findequipesbyprojetdetail/{technologie}")
+    public List<Equipe> findequipesbyprojetdetail(@PathVariable("technologie") String technologie) {
+        List<Equipe> listEquipes = equipeService.findEquipebyprojetdetails(technologie);
+        return listEquipes;
     }
 }

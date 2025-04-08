@@ -92,7 +92,22 @@ public class ProjetServiceImpl implements IProjetService {
         projet.setProjetDetail(null);
         return projetRepository.save(projet);
     }
+    @Override
+    public List<Projet> retrieveProjetSelonTech(String technologie){
+        return projetRepository.findByProjetDetailTechnologieLike(technologie);
+    }
 
-
+    @Override
+    public List<Projet> retrieveProjetDetailparTechnologie(String technologie) {
+        return projetRepository.findByProjetDetailTechnologie(technologie);
+    }
+    @Override
+    public List<Projet> findProjetparequipe(Long id) {
+        return projetRepository.findByEquipesId(id);
+    }
+    @Override
+    public List<Projet> findProjetparequipeetdescriptionnotnull(Long id) {
+        return projetRepository.findByEquipesIdAndProjetdetailDescriptionNotNull(id);
+    }
 
 }
