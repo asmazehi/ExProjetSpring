@@ -87,4 +87,12 @@ public class ProjetServiceImpl implements IProjetService {
         equipe.getProjets().addAll(projets);
         equipeRepository.save(equipe);
     }
+    public Projet DesaffecterProjetDetailFromProjet(Long projetId) {
+        Projet projet = projetRepository.findById(projetId).get();
+        projet.setProjetDetail(null);
+        return projetRepository.save(projet);
+    }
+
+
+
 }
